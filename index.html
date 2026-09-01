@@ -227,6 +227,22 @@
     .title-block{ grid-template-columns: 1fr; }
     .title-block div{ border-right: none; }
   }
+
+  .publication-link a{
+    display: inline-block;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--accent);
+    color: var(--paper-bright);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+  }
+  .publication-link a:hover{
+    background: var(--accent);
+    color: var(--blue-deep);
+  }
+
 </style>
 </head>
 <body>
@@ -267,6 +283,12 @@
     une engenharia elétrica, gestão de equipes e planejamento de longo prazo para manter a estrutura de uma das
     maiores universidades federais do Espírito Santo em funcionamento.
   </p>
+    <div class="publication-link" style="margin-top:2rem;">
+      <a href="artigo_final.pdf" target="_blank" rel="noopener">
+        Artigo final — PDF
+      </a>
+    </div>
+
 </section>
 
 <section class="trajectory">
