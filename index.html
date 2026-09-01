@@ -180,6 +180,140 @@
         text-align: center;
       }
     }
+  
+    /* ===== Chico — avatar interativo ===== */
+    .chico-section {
+      display: grid;
+      grid-template-columns: minmax(250px, 360px) 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .chico-avatar-card {
+      position: relative;
+      min-height: 360px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 18px;
+      background: radial-gradient(circle at 50% 35%, #dff3ff 0, #eef7fb 42%, #f7f9fb 100%);
+      border: 1px solid var(--border);
+    }
+
+    .chico-avatar {
+      width: 100%;
+      max-width: 350px;
+      display: block;
+      transform-origin: 50% 90%;
+      animation: chicoFloat 3.2s ease-in-out infinite;
+      filter: drop-shadow(0 12px 12px rgba(15, 50, 75, .18));
+      user-select: none;
+    }
+
+    .chico-avatar.talking {
+      animation: chicoTalk .48s ease-in-out infinite alternate;
+    }
+
+    @keyframes chicoFloat {
+      0%, 100% { transform: translateY(0) rotate(-0.4deg); }
+      50% { transform: translateY(-8px) rotate(0.4deg); }
+    }
+
+    @keyframes chicoTalk {
+      from { transform: translateY(-2px) scale(1); }
+      to   { transform: translateY(-6px) scale(1.018); }
+    }
+
+    .chico-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: .82rem;
+      box-shadow: 0 5px 15px rgba(31,95,139,.25);
+    }
+
+    .chico-speech {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(20, 40, 55, .07);
+    }
+
+    .chico-speech h3 {
+      margin: 0 0 8px;
+      color: var(--accent-dark);
+      font-size: 1.35rem;
+    }
+
+    .chico-text {
+      margin: 0;
+      min-height: 92px;
+      font-size: 1.02rem;
+    }
+
+    .chico-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chico-btn {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+    }
+
+    .chico-btn:hover { background: var(--accent-dark); }
+
+    .chico-btn.secondary {
+      background: #eef5f9;
+      color: var(--accent-dark);
+      border: 1px solid #c9dce8;
+    }
+
+    .chico-question {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font: inherit;
+      outline: none;
+    }
+
+    .chico-question:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(31,95,139,.12);
+    }
+
+    .chico-tip {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    @media (max-width: 760px) {
+      .chico-section {
+        grid-template-columns: 1fr;
+      }
+
+      .chico-avatar-card {
+        min-height: 300px;
+      }
+    }
+
   </style>
 </head>
 
@@ -254,6 +388,62 @@
       </div>
     </section>
 
+
+    <section class="card">
+      <h2>Chico explica o artigo</h2>
+
+      <div class="chico-section">
+        <div class="chico-avatar-card">
+          <span class="chico-badge">🎓 Chico • Guia científico</span>
+          <img
+            class="chico-avatar"
+            id="chicoAvatar"
+            src="chico_avatar.png"
+            alt="Avatar Chico, guia virtual que explica o artigo"
+          >
+        </div>
+
+        <div class="chico-speech">
+          <h3>👋 Olá! Eu sou o Chico!</h3>
+
+          <p class="chico-text" id="chicoText">
+            Vou explicar o artigo de um jeito simples. A ideia principal é entender
+            como podemos usar plasma e vapor para transformar metano em produtos
+            de interesse, principalmente hidrogênio e carbono.
+          </p>
+
+          <div class="chico-controls">
+            <button class="chico-btn" id="speakBtn" type="button">
+              🔊 Ouvir o Chico
+            </button>
+
+            <button class="chico-btn secondary" id="stopBtn" type="button">
+              ⏹ Parar
+            </button>
+          </div>
+
+          <input
+            class="chico-question"
+            id="chicoQuestion"
+            type="text"
+            placeholder="Digite uma pergunta, por exemplo: O que é plasma?"
+            aria-label="Pergunta para o Chico"
+          >
+
+          <div class="chico-controls">
+            <button class="chico-btn" id="askBtn" type="button">
+              💡 Perguntar ao Chico
+            </button>
+          </div>
+
+          <div class="chico-tip">
+            O botão de áudio usa a voz disponível no navegador (síntese de fala).
+            Não é necessário instalar nenhum programa.
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="card">
       <h2>Visualização do artigo</h2>
 
@@ -277,6 +467,91 @@
     Artigo científico — arquivo PDF disponibilizado para visualização e download.
   </div>
 </footer>
+
+
+<script>
+(function () {
+  const avatar = document.getElementById("chicoAvatar");
+  const text = document.getElementById("chicoText");
+  const speakBtn = document.getElementById("speakBtn");
+  const stopBtn = document.getElementById("stopBtn");
+  const askBtn = document.getElementById("askBtn");
+  const question = document.getElementById("chicoQuestion");
+
+  const answers = {
+    "pirólise":
+      "Pirólise é um processo em que uma molécula, como o metano, é quebrada usando energia e com pouco ou nenhum oxigênio. Neste estudo, o objetivo é produzir principalmente hidrogênio e carbono.",
+    "plasma":
+      "Plasma é um gás que recebeu tanta energia que parte de seus átomos ou moléculas fica ionizada. Por isso ele consegue atingir temperaturas e condições muito diferentes de um gás comum.",
+    "vapor":
+      "O vapor de água participa do processo e altera as reações químicas do sistema. No modelo, ele é uma das espécies de entrada usadas para calcular o equilíbrio.",
+    "acetileno":
+      "O acetileno, ou C dois H dois, foi incluído como espécie intermediária no modelo. Isso ajuda a representar melhor possíveis caminhos químicos durante a transformação do metano.",
+    "ser":
+      "SER significa Specific Energy Requirement, ou demanda específica de energia. É uma forma de medir quanta energia é necessária para produzir uma determinada quantidade de hidrogênio.",
+    "econom":
+      "A análise técnico-econômica compara receitas e custos. O estudo considera principalmente a venda do hidrogênio e do carbono e o custo da eletricidade.",
+    "objetivo":
+      "O objetivo é ampliar o modelo, estudar o comportamento dos produtos, medir o desempenho energético e procurar condições de operação mais interessantes do ponto de vista técnico e econômico.",
+    "metano":
+      "O metano é a molécula CH quatro. No processo estudado, ele é a matéria-prima que recebe energia no plasma para formar novos produtos."
+  };
+
+  function speak(message) {
+    if (!("speechSynthesis" in window)) {
+      alert("Seu navegador não oferece síntese de fala.");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(message);
+    utterance.lang = "pt-BR";
+    utterance.rate = 0.92;
+    utterance.pitch = 1.05;
+
+    utterance.onstart = () => avatar.classList.add("talking");
+    utterance.onend = () => avatar.classList.remove("talking");
+    utterance.onerror = () => avatar.classList.remove("talking");
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function findAnswer(q) {
+    const normalized = q.toLowerCase();
+
+    for (const key in answers) {
+      if (normalized.includes(key)) return answers[key];
+    }
+
+    return "Boa pergunta! Para esse tema, recomendo começar pelo resumo do artigo. Posso explicar conceitos como pirólise, plasma, vapor, acetileno, SER e análise técnico-econômica.";
+  }
+
+  speakBtn.addEventListener("click", () => speak(text.textContent.trim()));
+
+  stopBtn.addEventListener("click", () => {
+    window.speechSynthesis.cancel();
+    avatar.classList.remove("talking");
+  });
+
+  askBtn.addEventListener("click", () => {
+    const q = question.value.trim();
+
+    if (!q) {
+      text.textContent = "Digite uma pergunta e eu tento explicar de forma simples.";
+      speak(text.textContent);
+      return;
+    }
+
+    const answer = findAnswer(q);
+    text.textContent = answer;
+    speak(answer);
+  });
+
+  question.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") askBtn.click();
+  });
+})();
+</script>
 
 </body>
 </html>
