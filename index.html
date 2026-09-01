@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Francisco Caniçali Primo — Engenheiro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue-deep: #17324a;
+    --blue-mid: #21486a;
+    --blue-line: #6f97b4;
+    --paper: #eee7d8;
+    --paper-bright: #f7f2e6;
+    --ink: #f3f0e6;
+    --accent: #d9622b;
+    --max-w: 880px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--blue-deep);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+
+  a{ color: var(--accent); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 5rem 1.5rem 4rem;
+    background-image:
+      linear-gradient(var(--blue-deep), var(--blue-deep)),
+      repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(111,151,180,0.18) 28px),
+      repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(111,151,180,0.18) 28px);
+    background-blend-mode: normal;
+    border-bottom: 2px solid var(--blue-line);
+    overflow: hidden;
+  }
+
+  .hero::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 0%, rgba(23,50,74,0) 0%, var(--blue-deep) 72%);
+    pointer-events: none;
+  }
+
+  .hero-inner{
+    position: relative;
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  .eyebrow-mark{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--blue-line);
+    margin: 0 0 1.1rem;
+  }
+
+  h1{
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.02;
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .role-line{
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+    color: var(--paper);
+    margin: 0 0 2.4rem;
+    max-width: 46ch;
+  }
+
+  /* Title block — modeled after the info box printed in the corner of a technical drawing */
+  .title-block{
+    border: 1.5px solid var(--blue-line);
+    background: rgba(0,0,0,0.14);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    max-width: 620px;
+  }
+
+  .title-block div{
+    padding: 0.85rem 1.1rem;
+    border-right: 1px solid var(--blue-line);
+    border-bottom: 1px solid var(--blue-line);
+  }
+
+  .title-block div:nth-child(2n){ border-right: none; }
+
+  .title-block dt{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--blue-line);
+    margin: 0 0 0.3rem;
+  }
+
+  .title-block dd{
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--paper-bright);
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 3.6rem 1.5rem;
+  }
+
+  h2{
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 1.6rem;
+    color: var(--paper-bright);
+  }
+
+  .about p{
+    font-size: 1.05rem;
+    color: var(--paper);
+    max-width: 68ch;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{
+    position: relative;
+    padding-left: 1.6rem;
+    border-left: 1.5px solid var(--blue-line);
+  }
+
+  .tl-item{
+    position: relative;
+    padding-bottom: 2rem;
+  }
+
+  .tl-item:last-child{ padding-bottom: 0; }
+
+  .tl-item::before{
+    content: "";
+    position: absolute;
+    left: -1.87rem;
+    top: 0.35rem;
+    width: 9px;
+    height: 9px;
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+
+  .tl-year{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--blue-line);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .tl-title{
+    font-weight: 600;
+    color: var(--paper-bright);
+    font-size: 1.02rem;
+  }
+
+  .tl-current .tl-title::after{
+    content: "— atual";
+    font-weight: 400;
+    color: var(--accent);
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    border-top: 2px solid var(--blue-line);
+    background: rgba(0,0,0,0.12);
+  }
+
+  .contact-grid{
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .contact-item dt{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--blue-line);
+    margin: 0 0 0.35rem;
+  }
+
+  .contact-item dd{
+    margin: 0;
+    font-size: 1.02rem;
+    color: var(--paper-bright);
+  }
+
+  .contact-item a{
+    color: var(--paper-bright);
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+
+  footer{
+    text-align: center;
+    padding: 2rem 1.5rem 2.6rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--blue-line);
+  }
+
+  @media (max-width: 480px){
+    .title-block{ grid-template-columns: 1fr; }
+    .title-block div{ border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow-mark">FICHA TÉCNICA · VITÓRIA, ES</p>
+    <h1>Francisco Caniçali Primo</h1>
+    <p class="role-line">Engenheiro eletricista e servidor público federal, atuando na manutenção e planejamento da infraestrutura física da Universidade Federal do Espírito Santo.</p>
+
+    <dl class="title-block">
+      <div>
+        <dt>CARGO ATUAL</dt>
+        <dd>Diretor de Manutenção de Edificações e Equipamentos</dd>
+      </div>
+      <div>
+        <dt>FORMAÇÃO</dt>
+        <dd>Engenharia Elétrica — Mestrado</dd>
+      </div>
+      <div>
+        <dt>ÓRGÃO</dt>
+        <dd>UFES — Universidade Federal do Espírito Santo</dd>
+      </div>
+      <div>
+        <dt>NA UFES DESDE</dt>
+        <dd>2009</dd>
+      </div>
+    </dl>
+  </div>
+</header>
+
+<section class="about">
+  <h2>Sobre</h2>
+  <p>
+    Engenheiro-área com formação em nível de mestrado, ingressei no serviço público federal em 2009 e, desde então,
+    venho atuando na área de infraestrutura física da UFES — passando pela execução de obras, pelo planejamento
+    físico do campus e, hoje, pela direção da manutenção de edificações e equipamentos da universidade. Meu trabalho
+    une engenharia elétrica, gestão de equipes e planejamento de longo prazo para manter a estrutura de uma das
+    maiores universidades federais do Espírito Santo em funcionamento.
+  </p>
+</section>
+
+<section class="trajectory">
+  <h2>Trajetória na UFES</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="tl-year">2009</span>
+      <div class="tl-title">Ingresso na UFES via concurso público — Técnico de Tecnologia da Informação</div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">2012</span>
+      <div class="tl-title">Nomeado Engenheiro-Área — Eletricista</div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">2014</span>
+      <div class="tl-title">Gerente de Obras</div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">2015</span>
+      <div class="tl-title">Gerente de Planejamento Físico</div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">2019</span>
+      <div class="tl-title">Diretor de Planejamento Físico</div>
+    </div>
+    <div class="tl-item tl-current">
+      <span class="tl-year">2023</span>
+      <div class="tl-title">Diretor de Manutenção de Edificações e Equipamentos</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <h2>Contato</h2>
+  <dl class="contact-grid">
+    <div class="contact-item">
+      <dt>E-MAIL</dt>
+      <dd><a href="mailto:franciscoprimo@gmail.com">franciscoprimo@gmail.com</a></dd>
+    </div>
+    <div class="contact-item">
+      <dt>LOCALIDADE</dt>
+      <dd>Vitória, Espírito Santo — Brasil</dd>
+    </div>
+    <div class="contact-item">
+      <dt>INSTITUIÇÃO</dt>
+      <dd>Universidade Federal do Espírito Santo</dd>
+    </div>
+  </dl>
+</section>
+
+<footer>PÁGINA PESSOAL — ÚLTIMA ATUALIZAÇÃO 2026</footer>
+
+</body>
+</html>
