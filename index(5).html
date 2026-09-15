@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chico Explica — Pirólise de Metano em Plasma</title>
+
+<style>
+:root{
+  --blue:#1769aa;
+  --blue2:#0b3f68;
+  --green:#20a45a;
+  --bg:#f3f7fa;
+  --card:#fff;
+  --text:#17202a;
+  --muted:#60717d;
+  --line:#d9e4eb;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.6;
+}
+.container{width:min(1120px,92%);margin:auto}
+header{
+  color:#fff;
+  padding:58px 0;
+  background:
+    radial-gradient(circle at 75% 45%,rgba(50,165,240,.25),transparent 28%),
+    linear-gradient(135deg,#071e31,#14557e);
+}
+.tag{
+  display:inline-block;
+  padding:7px 13px;
+  border-radius:999px;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.25);
+  font-size:.8rem;
+  font-weight:bold;
+}
+h1{font-size:clamp(2rem,4vw,3.1rem);line-height:1.12;max-width:950px;margin:18px 0}
+.hero{max-width:850px;font-size:1.08rem;opacity:.92}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.btnlink{
+  display:inline-block;padding:13px 20px;border-radius:9px;
+  text-decoration:none;font-weight:bold;
+}
+.open{background:var(--blue);color:#fff}
+.download{background:var(--green);color:#fff}
+main{padding:34px 0 60px}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:18px;padding:30px;margin-bottom:24px;
+  box-shadow:0 7px 24px rgba(15,45,65,.07)
+}
+h2{margin-top:0;color:var(--blue2)}
+
+/* ==========================================================
+   CHICO — AVATAR REALMENTE DIVIDIDO EM PARTES
+   ========================================================== */
+.chico-grid{
+  display:grid;
+  grid-template-columns:minmax(310px,430px) 1fr;
+  gap:30px;align-items:center
+}
+.stage{
+  min-height:480px;position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:center;
+  border-radius:22px;border:1px solid #c9dce8;
+  background:radial-gradient(circle at 50% 30%,#e8f8ff,#d8edf7 70%,#cfe5ef)
+}
+.floor{
+  position:absolute;bottom:24px;width:68%;height:18px;border-radius:50%;
+  background:rgba(20,60,80,.16);filter:blur(4px);
+  animation:shadow 2s ease-in-out infinite
+}
+@keyframes shadow{50%{transform:scaleX(.75);opacity:.4}}
+
+.speech{
+  position:absolute;top:18px;left:18px;right:18px;z-index:20;
+  padding:12px 16px;background:#fff;border:2px solid #c7deea;
+  border-radius:17px;box-shadow:0 7px 20px rgba(0,0,0,.08);
+  font-weight:bold;color:var(--blue2)
+}
+.speech:after{
+  content:"";position:absolute;bottom:-12px;left:42px;
+  border:12px solid transparent;border-top-color:#fff;border-bottom:0
+}
+
+/* Corpo completo do Chico */
+.avatar{
+  position:relative;z-index:5;width:330px;height:395px;
+  margin-bottom:25px;transform-origin:50% 90%;
+  animation:bodyIdle 3s ease-in-out infinite
+}
+@keyframes bodyIdle{
+  0%,100%{transform:translateY(0) rotate(-.5deg)}
+  50%{transform:translateY(-7px) rotate(.5deg)}
+}
+
+/* Cada parte tem sua própria animação */
+.body{
+  position:absolute;left:72px;top:155px;width:186px;height:205px;
+  border-radius:65px 65px 38px 38px;
+  background:linear-gradient(145deg,#173d63,#082844);
+  box-shadow:inset 8px 0 18px rgba(255,255,255,.08),0 12px 20px rgba(0,0,0,.15);
+}
+.hoodie-string{position:absolute;top:25px;left:77px;width:3px;height:48px;background:#d8e5ec;transform:rotate(5deg)}
+.hoodie-string.r{left:103px;transform:rotate(-5deg)}
+.chico-name{
+  position:absolute;top:82px;width:100%;text-align:center;
+  color:#fff;font-size:28px;font-weight:900;letter-spacing:1px
+}
+.atom{
+  position:absolute;top:123px;left:69px;width:50px;height:50px;
+  border:3px solid #fff;border-radius:50%;opacity:.9
+}
+.atom:before,.atom:after{
+  content:"";position:absolute;left:4px;right:4px;top:20px;height:3px;
+  background:#fff;transform:rotate(45deg)
+}
+.atom:after{transform:rotate(-45deg)}
+
+.head{
+  position:absolute;z-index:8;left:82px;top:42px;width:166px;height:145px;
+  background:linear-gradient(145deg,#f6b16f,#d8783e);
+  border-radius:48% 48% 45% 45%;
+  border:3px solid #a95c35;
+  transform-origin:50% 85%;
+  animation:headIdle 3.2s ease-in-out infinite
+}
+@keyframes headIdle{
+  0%,100%{transform:rotate(-1deg)}
+  50%{transform:rotate(1.5deg)}
+}
+.hair{
+  position:absolute;left:-6px;top:-34px;width:178px;height:82px;
+  background:#241914;border-radius:55% 45% 45% 35%;
+  transform:rotate(-4deg)
+}
+.hair:before,.hair:after{
+  content:"";position:absolute;background:#241914;border-radius:50%
+}
+.hair:before{width:55px;height:55px;left:12px;top:18px}
+.hair:after{width:65px;height:62px;right:10px;top:7px}
+.ear{position:absolute;top:61px;width:30px;height:42px;background:#e58b50;border:3px solid #aa603a;border-radius:50%}
+.ear.left{left:-17px}.ear.right{right:-17px}
+.eye{
+  position:absolute;top:50px;width:43px;height:51px;background:#fff;
+  border:3px solid #51352b;border-radius:50%;overflow:hidden;
+  transform-origin:50% 50%;animation:blink 5s infinite
+}
+.eye.left{left:32px}.eye.right{right:32px}
+.eye:before{
+  content:"";position:absolute;width:20px;height:25px;left:9px;top:12px;
+  background:#4a2c1f;border-radius:50%;box-shadow:inset 5px 4px 0 #17100c
+}
+.eye:after{
+  content:"";position:absolute;width:6px;height:7px;left:14px;top:15px;
+  background:#fff;border-radius:50%
+}
+@keyframes blink{
+  0%,92%,100%{transform:scaleY(1)}
+  95%{transform:scaleY(.08)}
+}
+.brow{
+  position:absolute;top:39px;width:42px;height:9px;background:#34211a;
+  border-radius:9px
+}
+.brow.left{left:31px;transform:rotate(-7deg)}
+.brow.right{right:31px;transform:rotate(7deg)}
+.nose{
+  position:absolute;left:73px;top:84px;width:20px;height:25px;
+  border-right:3px solid #a85d38;border-bottom:3px solid #a85d38;border-radius:0 0 13px 0
+}
+.mouth{
+  position:absolute;left:48px;top:104px;width:72px;height:31px;
+  background:#651e24;border:3px solid #7c392d;border-radius:10px 10px 45px 45px;
+  transform-origin:50% 20%;animation:mouthIdle 4s infinite
+}
+.mouth:before{
+  content:"";position:absolute;left:12px;top:1px;width:42px;height:10px;
+  background:#fff;border-radius:0 0 8px 8px
+}
+@keyframes mouthIdle{0%,92%,100%{transform:scaleY(.45)}95%{transform:scaleY(.85)}}
+
+/* Braços independentes */
+.arm{
+  position:absolute;z-index:4;top:181px;width:67px;height:155px;
+  background:linear-gradient(145deg,#183f66,#092946);
+  border-radius:35px;transform-origin:50% 12%;
+}
+.arm.left{left:50px;transform:rotate(22deg);animation:armLeft 3.5s ease-in-out infinite}
+.arm.right{right:45px;transform:rotate(-32deg);animation:armRight 3s ease-in-out infinite}
+@keyframes armLeft{
+  0%,100%{transform:rotate(22deg)}
+  50%{transform:rotate(35deg)}
+}
+@keyframes armRight{
+  0%,100%{transform:rotate(-32deg)}
+  50%{transform:rotate(-18deg)}
+}
+.hand{
+  position:absolute;bottom:-20px;left:4px;width:59px;height:55px;
+  background:#e58a4c;border:3px solid #aa603a;border-radius:45%
+}
+.arm.right .hand{transform:rotate(-8deg)}
+.arm.left .hand{transform:rotate(12deg)}
+
+/* Braços engraçados */
+.avatar.dance .arm.left{animation:danceLeft .5s infinite alternate}
+.avatar.dance .arm.right{animation:danceRight .5s infinite alternate}
+@keyframes danceLeft{to{transform:rotate(-45deg) translateY(-22px)}}
+@keyframes danceRight{to{transform:rotate(35deg) translateY(-25px)}}
+
+.avatar.wave .arm.right{animation:wave .32s infinite alternate}
+@keyframes wave{to{transform:rotate(-65deg) translateY(-18px)}}
+
+.avatar.think .head{animation:thinkHead .7s ease-in-out 2}
+@keyframes thinkHead{50%{transform:rotate(7deg) translateX(5px)}}
+
+/* Fala */
+.avatar.talking .head{animation:talkHead .4s infinite alternate}
+.avatar.talking .mouth{animation:talkMouth .16s infinite alternate}
+.avatar.talking .body{animation:talkBody .35s infinite alternate}
+@keyframes talkHead{to{transform:translateY(-3px) rotate(2deg)}}
+@keyframes talkMouth{to{transform:scaleY(1.15) scaleX(1.04)}}
+@keyframes talkBody{to{transform:translateY(-3px)}}
+
+/* Dança do corpo inteiro */
+.avatar.dance{animation:wholeDance .8s infinite alternate}
+@keyframes wholeDance{
+  from{transform:rotate(-5deg) translateY(0)}
+  to{transform:rotate(5deg) translateY(-14px)}
+}
+.avatar.jump{animation:jump .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes jump{
+  0%{transform:translateY(0)}
+  45%{transform:translateY(-65px) rotate(-4deg) scale(1.05)}
+  75%{transform:translateY(0) rotate(3deg)}
+  100%{transform:translateY(0)}
+}
+.avatar.celebrate{animation:celebrate .9s ease-in-out}
+@keyframes celebrate{
+  20%{transform:rotate(-8deg) translateY(-20px)}
+  40%{transform:rotate(8deg)}
+  60%{transform:rotate(-7deg) translateY(-15px)}
+  80%{transform:rotate(7deg)}
+}
+
+/* Controles */
+.panel h3{font-size:1.45rem;color:var(--blue2);margin-top:0}
+.chico-text{min-height:105px;font-size:1.03rem}
+.controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+button{
+  border:0;border-radius:9px;padding:12px 15px;
+  font:inherit;font-weight:bold;cursor:pointer
+}
+.primary{background:var(--blue);color:white}
+.green{background:var(--green);color:white}
+.secondary{background:#edf4f8;color:var(--blue2);border:1px solid #cbdde7}
+.question{
+  width:100%;padding:13px;margin-top:14px;
+  border:1px solid var(--line);border-radius:9px;font:inherit
+}
+.tip{font-size:.88rem;color:var(--muted)}
+.pdf{
+  width:100%;height:760px;border:1px solid var(--line);
+  border-radius:12px;background:#eee
+}
+footer{text-align:center;padding:28px;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:800px){
+  .chico-grid{grid-template-columns:1fr}
+  .stage{min-height:450px}
+  .pdf{height:580px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+  <span class="tag">🔬 ARTIGO CIENTÍFICO</span>
+  <h1>Extensão de um Modelo de Equilíbrio para Pirólise de Metano em Plasma de Vapor: Inclusão de Intermediários, Desempenho Energético e Otimização Técnico-Econômica</h1>
+  <p class="hero">
+    Um estudo computacional sobre a transformação do metano usando plasma e vapor,
+    com análise da produção de hidrogênio, carbono, acetileno, consumo de energia
+    e condições de operação.
+  </p>
+  <div class="actions">
+    <a class="btnlink open" href="artigo_final.pdf" target="_blank" rel="noopener">📄 Abrir artigo em PDF</a>
+    <a class="btnlink download" href="artigo_final.pdf" download="artigo_final.pdf">⬇️ Baixar artigo em PDF</a>
+  </div>
+</div>
+</header>
+
+<main>
+<div class="container">
+
+<section class="card">
+<h2>🎓 Conheça o Chico — agora animado por partes!</h2>
+
+<div class="chico-grid">
+
+<div class="stage">
+  <div class="speech" id="speech">👋 Oi! Eu sou o Chico! Ciência também pode ser divertida! 😄</div>
+  <div class="floor"></div>
+
+  <!-- AVATAR CONSTRUÍDO POR PARTES -->
+  <div class="avatar" id="avatar" aria-label="Avatar animado Chico">
+
+    <div class="hair"></div>
+
+    <div class="body">
+      <div class="hoodie-string"></div>
+      <div class="hoodie-string r"></div>
+      <div class="chico-name">CHICO</div>
+      <div class="atom"></div>
+    </div>
+
+    <div class="arm left"><div class="hand"></div></div>
+    <div class="arm right"><div class="hand"></div></div>
+
+    <div class="head">
+      <div class="ear left"></div>
+      <div class="ear right"></div>
+      <div class="brow left"></div>
+      <div class="brow right"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="nose"></div>
+      <div class="mouth"></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="panel">
+  <h3>👋 Olá! Eu sou o Chico!</h3>
+
+  <p class="chico-text" id="chicoText">
+    Eu sou o guia virtual deste artigo. Vou explicar tudo como se fosse uma
+    aula para alunos do ensino médio. E prometo não deixar a ciência chata! 😄
+  </p>
+
+  <div class="controls">
+    <button class="primary" id="speak">🔊 Ouvir o Chico</button>
+    <button class="green" id="wave">👋 Acenar</button>
+    <button class="green" id="dance">🕺 Dançar</button>
+    <button class="secondary" id="jump">🚀 Pular</button>
+    <button class="secondary" id="think">🤔 Pensar</button>
+    <button class="secondary" id="celebrate">🎉 Comemorar</button>
+    <button class="secondary" id="stop">⏹ Parar voz</button>
+  </div>
+
+  <input class="question" id="question"
+         placeholder="Pergunte ao Chico: O que é plasma?">
+
+  <div class="controls">
+    <button class="primary" id="ask">💡 Perguntar ao Chico</button>
+  </div>
+
+  <p class="tip">
+    Experimente perguntar: “O que é pirólise?”, “O que é plasma?”,
+    “Por que usamos vapor?”, “O que é acetileno?”, “O que é SER?” ou
+    “Qual é o objetivo do estudo?”
+  </p>
+</div>
+
+</div>
+</section>
+
+<section class="card">
+<h2>📄 Visualização do artigo</h2>
+<iframe class="pdf" src="artigo_final.pdf#view=FitH" title="Artigo final em PDF"></iframe>
+<p class="tip">Se o PDF não abrir no visualizador, use os botões de abertura ou download.</p>
+</section>
+
+</div>
+</main>
+
+<footer>
+  Artigo científico — Francisco Caniçali Primo
+</footer>
+
+<script>
+(function(){
+
+const avatar=document.getElementById("avatar");
+const speech=document.getElementById("speech");
+const text=document.getElementById("chicoText");
+const question=document.getElementById("question");
+
+const answers={
+  "pirólise":"Pirólise é um processo que usa energia para quebrar moléculas, geralmente com pouco ou nenhum oxigênio. Aqui, estudamos a quebra do metano para produzir principalmente hidrogênio e carbono.",
+  "plasma":"Plasma é um gás que recebeu muita energia. Algumas partículas ficam eletricamente carregadas. Por isso, ele pode criar condições muito intensas para as reações químicas.",
+  "vapor":"O vapor de água entra junto com o metano e participa das reações. Ele pode mudar quais produtos são formados e influencia o equilíbrio químico do sistema.",
+  "acetileno":"O acetileno, C dois H dois, foi incluído como uma espécie intermediária. Isso permite representar melhor alguns caminhos químicos que podem acontecer durante a transformação do metano.",
+  "ser":"SER significa demanda específica de energia. Em termos simples: quanto de energia precisamos gastar para produzir uma determinada quantidade de hidrogênio?",
+  "economia":"A análise técnico-econômica compara o que o processo pode gerar de receita com o que ele custa. Entre os principais custos está a eletricidade.",
+  "objetivo":"O objetivo é ampliar o modelo, estudar os produtos formados, avaliar o desempenho energético e procurar condições de operação mais interessantes técnica e economicamente.",
+  "metano":"Metano é o CH quatro. Ele é a matéria-prima principal do processo. A energia fornecida pelo plasma ajuda a transformar essa molécula em novos produtos.",
+  "hidrogênio":"O hidrogênio é um dos principais produtos de interesse. A pesquisa procura entender como produzir esse gás a partir do metano usando plasma.",
+  "carbono":"O carbono sólido é outro produto importante da pirólise. Dependendo das suas características, ele pode ter aplicações industriais e valor econômico."
+};
+
+function clearMoves(){
+  avatar.classList.remove("dance","wave","jump","think","celebrate");
+  void avatar.offsetWidth;
+}
+
+function move(type,message){
+  clearMoves();
+  avatar.classList.add(type);
+  speech.textContent=message;
+  setTimeout(()=>avatar.classList.remove(type),1500);
+}
+
+function speak(message){
+  if(!("speechSynthesis" in window)){
+    alert("Seu navegador não possui suporte à síntese de voz.");
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const u=new SpeechSynthesisUtterance(message);
+  u.lang="pt-BR";
+  u.rate=.92;
+  u.pitch=1.08;
+  u.volume=1;
+
+  u.onstart=()=>{
+    avatar.classList.add("talking");
+    speech.textContent="🔊 Falando... não dorme na aula! 😄";
+  };
+
+  u.onend=()=>{
+    avatar.classList.remove("talking");
+    speech.textContent="😎 Pronto! Pode fazer outra pergunta.";
+    move("celebrate","🎉 Explicação concluída!");
+  };
+
+  u.onerror=()=>avatar.classList.remove("talking");
+  speechSynthesis.speak(u);
+}
+
+function normalize(s){
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+function answer(q){
+  const n=normalize(q);
+
+  for(const key in answers){
+    if(n.includes(normalize(key))) return answers[key];
+  }
+
+  return "Boa pergunta! Eu consigo explicar os principais conceitos do artigo: pirólise, plasma, vapor, metano, hidrogênio, carbono, acetileno, SER e análise técnico-econômica.";
+}
+
+document.getElementById("speak").onclick=()=>speak(text.textContent.trim());
+document.getElementById("stop").onclick=()=>{
+  speechSynthesis.cancel();
+  avatar.classList.remove("talking");
+  speech.textContent="😅 Parei de falar. Manda outra pergunta!";
+};
+document.getElementById("wave").onclick=()=>move("wave","👋 Oi! Tudo bem? Vamos aprender ciência!");
+document.getElementById("dance").onclick=()=>move("dance","🕺 Quando a ciência fica boa, eu danço!");
+document.getElementById("jump").onclick=()=>move("jump","🚀 Essa ideia merece um salto!");
+document.getElementById("think").onclick=()=>move("think","🤔 Hmmm... deixa eu pensar...");
+document.getElementById("celebrate").onclick=()=>move("celebrate","🎉 Muito bem! Você está entendendo!");
+
+document.getElementById("ask").onclick=()=>{
+  const q=question.value.trim();
+
+  if(!q){
+    text.textContent="Digite uma pergunta e eu explico de maneira simples.";
+    move("think","🤔 Estou esperando sua pergunta...");
+    speak(text.textContent);
+    return;
+  }
+
+  const a=answer(q);
+  text.textContent=a;
+  move("celebrate","💡 Boa pergunta! Aqui vai a explicação:");
+  speak(a);
+};
+
+question.addEventListener("keydown",e=>{
+  if(e.key==="Enter") document.getElementById("ask").click();
+});
+
+/* O Chico faz pequenas brincadeiras automaticamente */
+const jokes=[
+  ["wave","👋 Ei! Ainda estou aqui!"],
+  ["think","🤔 Estou pensando em uma explicação fácil..."],
+  ["dance","🕺 Um pouquinho de dança científica!"],
+  ["celebrate","🎉 Ciência + curiosidade = combinação perfeita!"],
+  ["jump","🚀 Vamos elevar o nível da aula!"]
+];
+
+setInterval(()=>{
+  if(!avatar.classList.contains("talking")){
+    const j=jokes[Math.floor(Math.random()*jokes.length)];
+    move(j[0],j[1]);
+  }
+},7000);
+
+})();
+</script>
+
+</body>
+</html>
